@@ -110,16 +110,16 @@
 
         if (opts.axis) {
             var ax = (opts.axis + "").split(/[,\s]+/);
-            +ax[0] && axis.push(chartinst.axis(x + gutter, y + gutter, width - 2 * gutter, minx, maxx, opts.axisxstep || Math.floor((width - 2 * gutter) / 20), 2, paper));
-            +ax[1] && axis.push(chartinst.axis(x + width - gutter, y + height - gutter, height - 2 * gutter, miny, maxy, opts.axisystep || Math.floor((height - 2 * gutter) / 20), 3, paper));
-            +ax[2] && axis.push(chartinst.axis(x + gutter, y + height - gutter, width - 2 * gutter, minx, maxx, opts.axisxstep || Math.floor((width - 2 * gutter) / 20), 0, paper));
-            +ax[3] && axis.push(chartinst.axis(x + gutter, y + height - gutter, height - 2 * gutter, miny, maxy, opts.axisystep || Math.floor((height - 2 * gutter) / 20), 1, paper));
+            (+ax[0] || +ax[2]) && chartinst.grid(x + gutter, gutter + 10, width - 2 * gutter, height - 2 * gutter, opts.axisxstep || Math.floor((width - 2 * gutter) / 20), 0, paper);
+            (+ax[1] || +ax[3]) && chartinst.grid(x + gutter, y + height - gutter, width - 2 * gutter, height - 2 * gutter, opts.axisystep || Math.floor((height - 2 * gutter) / 20), 1, paper);
         }
 
         if (opts.axis) {
             var ax = (opts.axis + "").split(/[,\s]+/);
-            (+ax[0] || +ax[2]) && axis.push(chartinst.grid(x + gutter, 2 * gutter, width - 2 * gutter, height, opts.axisxstep || Math.floor((width - 2 * gutter) / 20), 0, paper));
-            (+ax[1] || +ax[3]) && axis.push(chartinst.grid(x + gutter, y + height - gutter, width - 2 * gutter, height - 2 * gutter, opts.axisystep || Math.floor((height - 2 * gutter) / 20), 1, paper));
+            +ax[0] && axis.push(chartinst.axis(x + gutter, y + gutter, width - 2 * gutter, minx, maxx, opts.axisxstep || Math.floor((width - 2 * gutter) / 20), 2, paper));
+            +ax[1] && axis.push(chartinst.axis(x + width - gutter, y + height - gutter, height - 2 * gutter, miny, maxy, opts.axisystep || Math.floor((height - 2 * gutter) / 20), 3, paper));
+            +ax[2] && axis.push(chartinst.axis(x + gutter, y + height - gutter, width - 2 * gutter, minx, maxx, opts.axisxstep || Math.floor((width - 2 * gutter) / 20), 0, paper));
+            +ax[3] && axis.push(chartinst.axis(x + gutter, y + height - gutter, height - 2 * gutter, miny, maxy, opts.axisystep || Math.floor((height - 2 * gutter) / 20), 1, paper));
         }
 
         var lines = paper.set(),
@@ -319,6 +319,7 @@
             return this;
         };
 
+        chart.opts = opts;
         return chart;
     };
     

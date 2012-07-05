@@ -811,6 +811,8 @@ Raphael.g = {
                 grid = grid.concat(["M", X, y, "l", 0, height]);
                 X += dx;
             }
+            grid = grid.concat(["M", X, y, "l", 0, height]);
+
         }
 
         var grid = paper.path(grid);
