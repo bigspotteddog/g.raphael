@@ -789,6 +789,42 @@ Raphael.g = {
         return { from: f, to: t, power: i };
     },
 
+    grid: function (x, y, width, height, steps, orientation, paper) {
+        steps = steps || 10;
+        paper = arguments[arguments.length-1] //paper is always last argument
+
+        var grid = [];
+
+        if (+orientation == 1 || +orientation == 3) {
+            var Y = y;
+            var dx = height / steps;
+
+            while (Y >= y - height) {
+                grid = grid.concat(["M", x, Y, "l", width, 0]);
+                Y -= dx;
+            }
+        } else {
+            var X = x;
+            var dx = width / steps;
+
+            while (X <= x + width) {
+                grid = grid.concat(["M", X, y, "l", 0, height]);
+                X += dx;
+            }
+        }
+
+        var grid = paper.path(grid);
+        grid.attr ("stroke", "#efefef");
+
+        var res = paper.path(grid);
+
+        res.remove = function () {
+            this.constructor.prototype.remove.call(this);
+        };
+
+        return res;
+    },
+
     axis: function (x, y, length, from, to, steps, orientation, labels, type, dashsize, paper) {
         dashsize = dashsize == null ? 2 : dashsize;
         type = type || "t";
@@ -818,6 +854,7 @@ Raphael.g = {
             while (Y >= y - length) {
                 type != "-" && type != " " && (path = path.concat(["M", x - (type == "+" || type == "|" ? dashsize : !(orientation - 1) * dashsize * 2), Y + .5, "l", dashsize * 2 + 1, 0]));
                 text.push(paper.text(x + addon, Y, (labels && labels[j++]) || (Math.round(label) == label ? label : +label.toFixed(rnd))).attr(txtattr).attr({ "text-anchor": orientation - 1 ? "start" : "end" }));
+
                 label += d;
                 Y -= dx;
             }
