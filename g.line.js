@@ -65,10 +65,16 @@
             valuesy = [valuesy];
         }
 
-        var gutter = opts.gutter || 10,
+        opts.gutter = opts.gutter || 10;
+        opts.symbol = opts.symbol || "";
+        opts.colors = opts.colors || chartinst.colors;
+        opts.width = opts.width || 2;
+        opts.dash = opts.dash || "";
+
+        var gutter = opts.gutter,
             len = Math.max(valuesx[0].length, valuesy[0].length),
-            symbol = opts.symbol || "",
-            colors = opts.colors || chartinst.colors,
+            symbol = opts.symbol,
+            colors = opts.colors,
             columns = null,
             dots = null,
             chart = paper.set(),
@@ -115,11 +121,16 @@
         }
 
         if (opts.axis) {
+            var axisLabelsInside = 1;
+            if (opts.axisLabelsInside) {
+                axisLabelsInside = -1;
+            }
+
             var ax = (opts.axis + "").split(/[,\s]+/);
-            +ax[0] && axis.push(chartinst.axis(x + gutter, y + gutter, width - 2 * gutter, minx, maxx, opts.axisxstep || Math.floor((width - 2 * gutter) / 20), 2, paper));
-            +ax[1] && axis.push(chartinst.axis(x + width - gutter, y + height - gutter, height - 2 * gutter, miny, maxy, opts.axisystep || Math.floor((height - 2 * gutter) / 20), 3, paper));
+            +ax[0] && axis.push(chartinst.axis(x + gutter, y + gutter, width - 2 * gutter, minx, maxx, opts.axisxstep || Math.floor((width - 2 * gutter) / 20), 2 * axisLabelsInside, paper));
+            +ax[1] && axis.push(chartinst.axis(x + width - gutter, y + height - gutter, height - 2 * gutter, miny, maxy, opts.axisystep || Math.floor((height - 2 * gutter) / 20), 3 * axisLabelsInside, paper));
             +ax[2] && axis.push(chartinst.axis(x + gutter, y + height - gutter, width - 2 * gutter, minx, maxx, opts.axisxstep || Math.floor((width - 2 * gutter) / 20), 0, paper));
-            +ax[3] && axis.push(chartinst.axis(x + gutter, y + height - gutter, height - 2 * gutter, miny, maxy, opts.axisystep || Math.floor((height - 2 * gutter) / 20), 1, paper));
+            +ax[3] && axis.push(chartinst.axis(x + gutter, y + height - gutter, height - 2 * gutter, miny, maxy, opts.axisystep || Math.floor((height - 2 * gutter) / 20), 1 * axisLabelsInside, paper));
         }
 
         var lines = paper.set(),
@@ -130,10 +141,10 @@
             if (!opts.nostroke) {
                 lines.push(line = paper.path().attr({
                     stroke: colors[i],
-                    "stroke-width": opts.width || 2,
+                    "stroke-width": opts.width,
                     "stroke-linejoin": "round",
                     "stroke-linecap": "round",
-                    "stroke-dasharray": opts.dash || ""
+                    "stroke-dasharray": opts.dash
                 }));
             }
 

@@ -812,7 +812,6 @@ Raphael.g = {
                 X += dx;
             }
             grid = grid.concat(["M", X, y, "l", 0, height]);
-
         }
 
         var grid = paper.path(grid);
@@ -849,7 +848,23 @@ Raphael.g = {
             rnd = i > 0 ? i : 0;
             dx = length / steps;
 
-        if (+orientation == 1 || +orientation == 3) {
+        var axisLabelsInside = false;
+        var orientation = +orientation;
+        if (orientation < 0) {
+            orientation = Math.abs(orientation);
+            axisLabelsInside = true;
+        }
+
+        if (orientation == 1 || orientation == 3) {
+
+            if (axisLabelsInside) {
+                if (orientation === 1) {
+                    orientation = 3;
+                } else {
+                    orientation = 1;
+                }
+            }
+
             var Y = y,
                 addon = (orientation - 1 ? 1 : -1) * (dashsize + 3 + !!(orientation - 1));
 
