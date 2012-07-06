@@ -101,16 +101,16 @@
             }
         }
 
-        var allx = Array.prototype.concat.apply([], valuesx),
-            ally = Array.prototype.concat.apply([], valuesy),
-            xdim = chartinst.snapEnds(Math.min.apply(Math, allx), Math.max.apply(Math, allx), valuesx[0].length - 1),
-            minx = xdim.from,
-            maxx = xdim.to,
-            ydim = chartinst.snapEnds(Math.min.apply(Math, ally), Math.max.apply(Math, ally), valuesy[0].length - 1),
-            miny = ydim.from,
-            maxy = ydim.to,
-            kx = (width - gutter * 2) / ((maxx - minx) || 1),
-            ky = (height - gutter * 2) / ((maxy - miny) || 1);
+        var allx = Array.prototype.concat.apply([], valuesx);
+        var ally = Array.prototype.concat.apply([], valuesy);
+        var xdim = chartinst.snapEnds(Math.min.apply(Math, allx), Math.max.apply(Math, allx), valuesx[0].length - 1);
+        var minx = Math.min.apply(Math, allx);//xdim.from;
+        var maxx = Math.max.apply(Math, allx);//xdim.to;
+        var ydim = chartinst.snapEnds(Math.min.apply(Math, ally), Math.max.apply(Math, ally), valuesy[0].length - 1);
+        var miny = Math.min.apply(Math, ally);//ydim.from;
+        var maxy = Math.max.apply(Math, ally);//ydim.to;
+        var kx = (width - gutter * 2) / ((maxx - minx) || 1);
+        var ky = (height - gutter * 2) / ((maxy - miny) || 1);
 
         var axis = paper.set();
 
