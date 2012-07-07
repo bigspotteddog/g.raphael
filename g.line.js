@@ -95,8 +95,8 @@
 
         var allx = Array.prototype.concat.apply([], valuesx);
         var ally = Array.prototype.concat.apply([], valuesy);
-        var minx = opts.minx || Math.floor(Math.min.apply(Math, allx) - 1);
-        var maxx = opts.maxx || Math.ceil(Math.max.apply(Math, allx) + 1);
+        var minx = opts.minx || Math.floor(Math.min.apply(Math, allx));
+        var maxx = opts.maxx || Math.ceil(Math.max.apply(Math, allx));
         var miny = opts.miny || Math.floor(Math.min.apply(Math, ally) - 1);
         var maxy = opts.maxy || Math.ceil(Math.max.apply(Math, ally) + 1);
         var kx = (width - gutter * 2) / ((maxx - minx) || 1);
