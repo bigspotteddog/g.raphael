@@ -104,11 +104,11 @@
         var allx = Array.prototype.concat.apply([], valuesx);
         var ally = Array.prototype.concat.apply([], valuesy);
         var xdim = chartinst.snapEnds(Math.min.apply(Math, allx), Math.max.apply(Math, allx), valuesx[0].length - 1);
-        var minx = Math.min.apply(Math, allx);//xdim.from;
-        var maxx = Math.max.apply(Math, allx);//xdim.to;
+        var minx = opts.minx || Math.floor(Math.min.apply(Math, allx));//xdim.from;
+        var maxx = opts.maxx || Math.ceil(Math.max.apply(Math, allx));//xdim.to;
         var ydim = chartinst.snapEnds(Math.min.apply(Math, ally), Math.max.apply(Math, ally), valuesy[0].length - 1);
-        var miny = Math.min.apply(Math, ally);//ydim.from;
-        var maxy = Math.max.apply(Math, ally);//ydim.to;
+        var miny = opts.miny || Math.floor(Math.min.apply(Math, ally));//ydim.from;
+        var maxy = opts.maxy || Math.ceil(Math.max.apply(Math, ally));//ydim.to;
         var kx = (width - gutter * 2) / ((maxx - minx) || 1);
         var ky = (height - gutter * 2) / ((maxy - miny) || 1);
 
