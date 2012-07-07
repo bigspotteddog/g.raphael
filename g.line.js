@@ -116,7 +116,7 @@
 
         if (opts.axis) {
             var ax = (opts.axis + "").split(/[,\s]+/);
-            (+ax[0] || +ax[2]) && chartinst.grid(x + gutter, gutter + 10, width - 2 * gutter, height - 2 * gutter, opts.axisxstep || Math.floor((width - 2 * gutter) / 20), 0, paper);
+            //(+ax[0] || +ax[2]) && chartinst.grid(x + gutter, gutter + 10, width - 2 * gutter, height - 2 * gutter, opts.axisxstep || Math.floor((width - 2 * gutter) / 20), 0, paper);
             (+ax[1] || +ax[3]) && chartinst.grid(x + gutter, y + height - gutter, width - 2 * gutter, height - 2 * gutter, opts.axisystep || Math.floor((height - 2 * gutter) / 20), 1, paper);
         }
 
@@ -215,9 +215,9 @@
             var cvrs = f || paper.set();
 
             for (i = 0; i < ii; i++) {
-                var X = xs[i] - (xs[i] - (xs[i - 1] || x)) / 2,
-                    w = ((xs[i + 1] || x + width) - xs[i]) / 2 + (xs[i] - (xs[i - 1] || x)) / 2,
-                    C;
+                var X = xs[i] - (xs[i] - (xs[i - 1] || x)) / 2;
+                var w = ((xs[i + 1] || x + width) - xs[i]) / 2 + (xs[i] - (xs[i - 1] || x)) / 2;
+                var C;
 
                 f ? (C = {}) : cvrs.push(C = paper.rect(X - 1, y, Math.max(w + 1, 1), height).attr({ stroke: "none", fill: "#000", opacity: 0 }));
                 C.values = [];
@@ -243,8 +243,9 @@
                 f && f.call(C);
             }
 
-            console.log(cvrs);
             !f && (columns = cvrs);
+
+            chart.columns = columns;
         }
 
         function createDots(f) {
@@ -271,9 +272,11 @@
             }
 
             !f && (dots = cvrs);
+
+            chart.dots = dots;
         }
 
-        chart.push(lines, shades, symbols, axis, columns, dots);
+        chart.push(lines, shades, symbols, axis);
         chart.lines = lines;
         chart.shades = shades;
         chart.symbols = symbols;
