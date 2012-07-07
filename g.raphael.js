@@ -834,9 +834,9 @@ Raphael.g = {
 
         var path = type == "|" || type == " " ? ["M", x + .5, y, "l", 0, .001] : orientation == 1 || orientation == 3 ? ["M", x + .5, y, "l", 0, -length] : ["M", x, y + .5, "l", length, 0],
             ends = this.snapEnds(from, to, steps),
-            f = ends.from,
-            t = ends.to,
-            i = ends.power,
+            f = from, //ends.from,
+            t = to, //ends.to,
+            i = 0, //ends.power,
             j = 0,
             txtattr = { font: "11px 'Fontin Sans', Fontin-Sans, sans-serif" },
             text = paper.set(),

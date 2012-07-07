@@ -91,14 +91,14 @@
                 shades.push(paper.path().attr({ stroke: "none", fill: colors[i], opacity: opts.nostroke ? 1 : .3 }));
             }
 
-            if (valuesy[i].length > width - 2 * gutter) {
-                valuesy[i] = shrink(valuesy[i], width - 2 * gutter);
-                len = width - 2 * gutter;
-            }
+            //if (valuesy[i].length > width - 2 * gutter) {
+            //    valuesy[i] = shrink(valuesy[i], width - 2 * gutter);
+            //    len = width - 2 * gutter;
+            //}
 
-            if (valuesx[i] && valuesx[i].length > width - 2 * gutter) {
-                valuesx[i] = shrink(valuesx[i], width - 2 * gutter);
-            }
+            //if (valuesx[i] && valuesx[i].length > width - 2 * gutter) {
+            //    valuesx[i] = shrink(valuesx[i], width - 2 * gutter);
+            //}
         }
 
         var allx = Array.prototype.concat.apply([], valuesx);
@@ -225,6 +225,7 @@
                 C.y = [];
                 C.x = xs[i];
                 C.axis = Xs[i];
+                C.index = [];
 
                 for (var j = 0, jj = valuesy.length; j < jj; j++) {
                     Xs2 = valuesx[j] || valuesx[0];
@@ -234,6 +235,7 @@
                             C.values.push(valuesy[j][k]);
                             C.y.push(y + height - gutter - (valuesy[j][k] - miny) * ky);
                             C.symbols.push(chart.symbols[j][k]);
+                            C.index.push(k);
                         }
                     }
                 }
@@ -241,6 +243,7 @@
                 f && f.call(C);
             }
 
+            console.log(cvrs);
             !f && (columns = cvrs);
         }
 
