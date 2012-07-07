@@ -72,7 +72,6 @@
         opts.dash = opts.dash || "";
 
         var gutter = opts.gutter,
-            len = Math.max(valuesx[0].length, valuesy[0].length),
             symbol = opts.symbol,
             colors = opts.colors,
             columns = null,
@@ -80,9 +79,11 @@
             chart = paper.set(),
             path = [];
 
-        for (var i = 0, ii = valuesy.length; i < ii; i++) {
-            len = Math.max(len, valuesy[i].length);
-        }
+        chart.x = x;
+        chart.y = y;
+        chart.width = width;
+        chart.height = height;
+
 
         var shades = paper.set();
 
@@ -90,25 +91,14 @@
             if (opts.shade) {
                 shades.push(paper.path().attr({ stroke: "none", fill: colors[i], opacity: opts.nostroke ? 1 : .3 }));
             }
-
-            //if (valuesy[i].length > width - 2 * gutter) {
-            //    valuesy[i] = shrink(valuesy[i], width - 2 * gutter);
-            //    len = width - 2 * gutter;
-            //}
-
-            //if (valuesx[i] && valuesx[i].length > width - 2 * gutter) {
-            //    valuesx[i] = shrink(valuesx[i], width - 2 * gutter);
-            //}
         }
 
         var allx = Array.prototype.concat.apply([], valuesx);
         var ally = Array.prototype.concat.apply([], valuesy);
-        var xdim = chartinst.snapEnds(Math.min.apply(Math, allx), Math.max.apply(Math, allx), valuesx[0].length - 1);
-        var minx = opts.minx || Math.floor(Math.min.apply(Math, allx));//xdim.from;
-        var maxx = opts.maxx || Math.ceil(Math.max.apply(Math, allx));//xdim.to;
-        var ydim = chartinst.snapEnds(Math.min.apply(Math, ally), Math.max.apply(Math, ally), valuesy[0].length - 1);
-        var miny = opts.miny || Math.floor(Math.min.apply(Math, ally));//ydim.from;
-        var maxy = opts.maxy || Math.ceil(Math.max.apply(Math, ally));//ydim.to;
+        var minx = opts.minx || Math.floor(Math.min.apply(Math, allx));
+        var maxx = opts.maxx || Math.ceil(Math.max.apply(Math, allx));
+        var miny = opts.miny || Math.floor(Math.min.apply(Math, ally));
+        var maxy = opts.maxy || Math.ceil(Math.max.apply(Math, ally));
         var kx = (width - gutter * 2) / ((maxx - minx) || 1);
         var ky = (height - gutter * 2) / ((maxy - miny) || 1);
 
