@@ -789,43 +789,6 @@ Raphael.g = {
         return { from: f, to: t, power: i };
     },
 
-    grid: function (x, y, width, height, steps, orientation, paper) {
-        steps = steps || 10;
-        paper = arguments[arguments.length-1] //paper is always last argument
-
-        var grid = [];
-
-        if (+orientation == 1 || +orientation == 3) {
-            var Y = y;
-            var dx = height / steps;
-
-            while (Y >= y - height) {
-                grid = grid.concat(["M", x, Y, "l", width, 0]);
-                Y -= dx;
-            }
-        } else {
-            var X = x;
-            var dx = width / steps;
-
-            while (X <= x + width) {
-                grid = grid.concat(["M", X, y, "l", 0, height]);
-                X += dx;
-            }
-            grid = grid.concat(["M", X, y, "l", 0, height]);
-        }
-
-        var grid = paper.path(grid);
-        grid.attr ("stroke", "#efefef");
-
-        var res = paper.path(grid);
-
-        res.remove = function () {
-            this.constructor.prototype.remove.call(this);
-        };
-
-        return res;
-    },
-
     axis: function (x, y, length, from, to, steps, orientation, labels, type, dashsize, paper) {
         dashsize = dashsize == null ? 2 : dashsize;
         type = type || "t";
