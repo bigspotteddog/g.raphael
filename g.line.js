@@ -83,6 +83,7 @@
         chart.y = y;
         chart.width = width;
         chart.height = height;
+        chart.opts = opts;
 
 
         var shades = paper.set();
@@ -107,7 +108,11 @@
         if (opts.axis) {
             var ax = (opts.axis + "").split(/[,\s]+/);
             //(+ax[0] || +ax[2]) && chartinst.grid(x + gutter, gutter + 10, width - 2 * gutter, height - 2 * gutter, opts.axisxstep || Math.floor((width - 2 * gutter) / 20), 0, paper);
-            (+ax[1] || +ax[3]) && chartinst.grid(x + gutter, y + height - gutter, width - 2 * gutter, height - 2 * gutter, opts.axisystep || Math.floor((height - 2 * gutter) / 20), 1, paper);
+            if (+ax[1] || +ax[3]) {
+                var grid = chartinst.grid(x + gutter, y + height - gutter, width - 2 * gutter, height - 2 * gutter, opts.axisystep || Math.floor((height - 2 * gutter) / 20), 1, paper);
+                chart.yaxis = grid;
+                axis.push(grid);
+            }
         }
 
         if (opts.axis) {
@@ -236,6 +241,10 @@
             !f && (columns = cvrs);
 
             chart.columns = columns;
+
+            if (opts.columnsCreated) {
+                opts.columnsCreated(chart);
+            }
         }
 
         function createDots(f) {
